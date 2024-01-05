@@ -2,11 +2,11 @@
 
 ## Overview
 
-PopChoice is a Movie Recommendation App built using React, a vector database, and the OpenAI API. The app suggests personalized movie recommendations based on user preferences and interactions.
+PopChoice is a Movie Recommendation App built using React, a Supabase vector database, and the OpenAI API. The app suggests personalized movie recommendations based on user preferences and interactions.
 
 ## Features
 
-- **Personalized Recommendations:** Utilizes a vector database and OpenAI API to generate personalized movie recommendations.
+- **Personalized Recommendations:** Utilizes a Supabase vector database and OpenAI API to generate personalized movie recommendations.
 - **User Interaction:** Allows users to input preferences and receive tailored suggestions.
 - **React Framework:** Built with React for a responsive and interactive user interface.
 
@@ -32,11 +32,11 @@ PopChoice is a Movie Recommendation App built using React, a vector database, an
 
 ## Configuration
 
-1. Set up the vector database credentials.
+1. Set up the Supabase database credentials.
 
    ```plaintext
    # .env
-   VECTOR_DB_API_KEY=your_vector_db_api_key
+   SUPABASE_DB_API_KEY=your_vector_db_api_key
    ```
 
 2. Obtain API keys for the OpenAI API.
