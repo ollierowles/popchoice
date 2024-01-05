@@ -36,7 +36,7 @@ PopChoice is a Movie Recommendation App built using React, a Supabase vector dat
 
    ```plaintext
    # .env
-   SUPABASE_DB_API_KEY=your_vector_db_api_key
+   SUPABASE_DB_API_KEY=your_supabase_db_api_key
    ```
 
 2. Obtain API keys for the OpenAI API.
