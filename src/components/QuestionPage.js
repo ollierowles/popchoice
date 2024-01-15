@@ -1,9 +1,15 @@
 import logo from '../imgs/logo.png'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import openai from '../services/openaiConfig';
+import supabase from '../services/supabaseConfig';
+import { useOutputContext } from '../contexts/OutputContext';
 
 function QuestionsPage() {
+  const [questions, setQuestions] = useState([' Whats your favorite movie and why? ', ' Are you in the mood for something new or classic? ', ' Do you wanna have fun or do you want something serious? ']);
   const [answers, setAnswers] = useState(['', '', '']);
+  const [formattedInput, setFormattedInput] = useState('original state');
+  const [recommendationOutput, setRecommendationOutput] = useOutputContext();
   const navigate = useNavigate();
 
   const handleAnswerChange = (index, value) => {
@@ -14,9 +20,42 @@ function QuestionsPage() {
     })
   }
 
-  const handleLetsGoClick = () => {
-    navigate('/recommendation');
+  useEffect(() => {
+    formatInput(answers);
+  }, [answers])
+
+  function formatInput(input) {
+    const concatenatedString = questions[0] + answers[0] + questions[1] + answers[1] + questions[2] + answers[2];
+    setFormattedInput(concatenatedString);
+  }
+
+
+  const handleLetsGoClick = async () => {
+    await getRecommendation();
+    navigate(`/recommendation`)
   };
+
+  const getRecommendation = async () => {
+    console.log(formattedInput);
+    const embeddingResponse = await openai.embeddings.create({
+      model: "text-embedding-ada-002",
+      input: formattedInput,
+    });
+
+    const embedding = embeddingResponse.data[0].embedding;
+    console.log(embedding);
+
+    let { data, error } = await supabase
+      .rpc('match_movies', {
+        query_embedding: embedding,
+        match_count: 1, 
+        match_threshold: 0.2, 
+      })
+      if (error) console.error(error)
+      else console.log(data);
+      setRecommendationOutput(data[0].content);
+  }
+
 
   return (
     <div className='question-container'>
@@ -52,7 +91,7 @@ function QuestionsPage() {
           <input 
           type="text"
           value={answers[2]}
-          onChange={(e) => handleAnswerChange(1, e.target.value)}
+          onChange={(e) => handleAnswerChange(2, e.target.value)}
           ></input>          </div>
         </div>
         <button onClick={handleLetsGoClick}>Lets Go</button>

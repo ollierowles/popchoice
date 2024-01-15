@@ -58,7 +58,7 @@ p {
 }
 
 .App-logo {
-  height: 25vmin;
+  width: 300px;
   pointer-events: none;
   margin-bottom: 20px;
 }
@@ -96,4 +96,5 @@ p {
 
 .Recommendation-poster { 
   max-width: 300px; 
+  margin: 50px;
 }

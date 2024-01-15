@@ -1,20 +1,22 @@
-import testPoster from "../imgs/test-poster.png"
-
+import testPoster from "../imgs/poster.jpg"
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOutputContext } from "../contexts/OutputContext";
 
 function RecommendationPage() {
   const navigate = useNavigate();
+  const [llmOutput, setLlmOutput] = useOutputContext();
 
   const handleGoAgainClick = () => {
     navigate('/');
   };
 
+  console.log(llmOutput.split('-'))
+
   return (
     <div className='recommendation-container'>
-      <h2>The Martian (2015)</h2>
+      {llmOutput.split(')')[0]})
       <img src={testPoster} className="Recommendation-poster" alt="poster" />
-      <p>The inspiring story of an astronaut stranded on Mars who needs to rely on his ingenuity to come back to Earth</p>
       <button onClick={handleGoAgainClick}>Go Again</button>
     </div>
   );
