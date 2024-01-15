@@ -32,7 +32,7 @@ PopChoice is a Movie Recommendation App built using React, a Supabase vector dat
 
 ## Configuration
 
-1. Set up the Supabase database credentials.
+1. Set up the Supabase database credentials for a populated vector database. 
 
    ```plaintext
    # .env
